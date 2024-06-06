@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responsive Sidebar Menu</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            height: 100vh;
+            overflow-x: hidden;
+        }
+        .sidebar {
+            width: 250px;
+            height: 100%;
+            background-color: #333;
+            color: white;
+            padding-top: 20px;
+            position: fixed;
+            left: -250px;
+            transition: left 0.3s;
+            z-index: 1000;
+            overflow-y: auto;
+        }
+        .sidebar a {
+            display: block;
+            color: white;
+            padding: 15px;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+        .sidebar a:hover {
+            background-color: #575757;
+        }
+        .content {
+            flex-grow: 1;
+            padding: 20px;
+            transition: margin-left 0.3s;
+        }
+        .content.overlay {
+            position: relative;
+            z-index: 500;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+        .menu-btn {
+            background-color: #333;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            z-index: 1001;
+        }
+        @media (max-width: 768px) {
+            .menu-btn {
+                display: block;
+            }
+            .sidebar {
+                width: 200px;
+            }
+            .sidebar.open-sidebar {
+                left: 0;
+            }
+            .content.overlay {
+                margin-left: 200px;
+            }
+            .menu-btn.hide {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <button class="menu-btn" id="menuBtn" onclick="toggleSidebar()">☰ Menu</button>
+    <div class="sidebar" id="sidebar">
+        <a href="#home" onclick="closeSidebar()">Home</a>
+        <a href="#services" onclick="closeSidebar()">Services</a>
+        <a href="#about" onclick="closeSidebar()">About</a>
+        <a href="#contact" onclick="closeSidebar()">Contact</a>
+    </div>
+    <div class="content" id="content">
+        <h1>Welcome to Our Website</h1>
+        <p>Here is the content of the webpage.</p>
+    </div>
+    <script>
+        function toggleSidebar() {
+            var sidebar = document.getElementById("sidebar");
+            var content = document.getElementById("content");
+            sidebar.classList.toggle("open-sidebar");
+            content.classList.toggle("overlay");
+            document.getElementById("menuBtn").classList.toggle("hide");
+        }
+        function closeSidebar() {
+            var sidebar = document.getElementById("sidebar");
+            var content = document.getElementById("content");
+            sidebar.classList.remove("open-sidebar");
+            content.classList.remove("overlay");
+        }
+    </script>
+</body>
+</html>
